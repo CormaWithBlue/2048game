@@ -1,0 +1,12 @@
+document.getElementById("up").onclick=function(){
+    alert("向上")
+}
+document.getElementById("down").onclick=function(){
+    alert("向下")
+}
+document.getElementById("left").onclick=function(){
+    alert("向左")
+}
+document.getElementById("right").onclick=function(){
+    alert("向右")
+}
