@@ -14,6 +14,9 @@ var init = function(){
     statusNow[parseInt(second/4)][second%4] = 2 * (Math.floor(Math.random()) + 1 );
 }
 
+var updateUI = function(){
+    
+}
 var calculate = function(direction){
     
     //一.根据方向转置矩阵
