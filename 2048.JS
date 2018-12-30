@@ -12,10 +12,74 @@ var init = function(){
         //second =+ 1;
     }
     statusNow[parseInt(second/4)][second%4] = 2 * (Math.floor(Math.random()) + 1 );
+    updateUI();
+}
+
+var updateDiamond = function(id,number){
+    //1.判断参数是否合法
+    if(id<0 || id>15){
+        return;
+    }
+    //console.log(Math.log(number)/Math.log(2));
+    if(number<0 || (number != 0 && !Number.isInteger(Math.log(number)/Math.log(2))) || number>2048){
+        return;
+    }
+    //2.找到要被赋值的div
+    var divId = "diamond"+id;
+    var divNow = document.getElementById(divId);
+    //3.更新div
+    if(number == 0){
+        divNow.textContent = "";
+    }
+    else{
+        divNow.textContent = number;
+    }
+    switch(number){
+        case 0:
+            divNow.style.backgroundColor = "rgb(195,195,195)";
+            break;
+        case 2:
+            divNow.style.backgroundColor = "rgb(250,235,215)";
+            break;
+        case 4:
+            divNow.style.backgroundColor = "rgb(255,127,80)";
+            break;
+        case 8:
+            divNow.style.backgroundColor = "rgb(222,184,135)";
+            break;
+        case 16:
+            divNow.style.backgroundColor = "rgb(127,215,212)";
+            break;
+        case 32:
+            divNow.style.backgroundColor = "rgb(184,134,11)";
+            break;
+        case 64:
+            divNow.style.backgroundColor = "rgb(233,150,122)";
+            break;
+        case 128:
+            divNow.style.backgroundColor = "rgb(173,255,47)";
+            break;
+        case 256:
+            divNow.style.backgroundColor = "rgb(255,105,180)";
+            break;
+        case 512:
+            divNow.style.backgroundColor = "rgb(72,209,204)";
+            break;
+        case 1024:
+            divNow.style.backgroundColor = "rgb(100.149,237)";
+            break;
+        case 2048:
+            divNow.style.backgroundColor = "rgb(147,112,216)";
+            break;
+    }
 }
 
 var updateUI = function(){
-    
+    for(var i=0;i<4;i++){
+        for(var j=0;j<4;j++){
+            updateDiamond(i*4+j, statusNow[i][j]);
+        }
+    }
 }
 var calculate = function(direction){
     
