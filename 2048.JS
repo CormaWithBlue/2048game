@@ -140,7 +140,7 @@ var calculate = function(direction){
     var newvalue = 2 * (Math.round(Math.random()) + 1 );
     for(var i=0; i<4; i++)
     {
-        if(newpos > 4-temp2[i].length)
+        if(newpos >= 4-temp2[i].length)
         {
             newpos -= 4-temp2[i].length;
         }
