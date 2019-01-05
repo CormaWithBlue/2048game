@@ -27,6 +27,7 @@ var updateDiamond = function(id,number){
     //2.找到要被赋值的div
     var divId = "diamond"+id;
     var divNow = document.getElementById(divId);
+    
     //3.更新div
     if(number == 0){
         divNow.textContent = "";

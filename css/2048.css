@@ -10,7 +10,7 @@
 #chessBoard{
     width:450px;
     height:450px;
-    background: url(底板.png) no-repeat center;
+    background: url("../image/background_image.png") no-repeat center;
 }
 
 .playBtn{
@@ -31,17 +31,4 @@
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
-}
-
-#up{
-    
-}
-#down{
-    
-}
-#left{
-    
-}
-#right{
-    
 }
