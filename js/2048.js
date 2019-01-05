@@ -11,7 +11,7 @@ var init = function(){
         //second++;
         //second =+ 1;
     }
-    statusNow[parseInt(second/4)][second%4] = 2 * (Math.floor(Math.random()) + 1 );
+    statusNow[parseInt(second/4)][second%4] = 2 * (Math.round(Math.random()) + 1 );
     updateUI();
 }
 
@@ -21,7 +21,7 @@ var updateDiamond = function(id,number){
         return;
     }
     //console.log(Math.log(number)/Math.log(2));
-    if(number<0 || (number != 0 && !Number.isInteger(Math.log(number)/Math.log(2))) || number>2048){
+    if(number<0 || (number != 0 && !Number.isInteger(Math.log(number)/Math.log(2)))){
         return;
     }
     //2.找到要被赋值的div
@@ -37,40 +37,45 @@ var updateDiamond = function(id,number){
     }
     switch(number){
         case 0:
-            divNow.style.backgroundColor = "rgb(195,195,195)";
+            divNow.style.backgroundColor = "#D9D9D9";
             break;
         case 2:
-            divNow.style.backgroundColor = "rgb(250,235,215)";
+            divNow.style.backgroundColor = "#FFB3A7";
             break;
         case 4:
-            divNow.style.backgroundColor = "rgb(255,127,80)";
+            divNow.style.backgroundColor = "#F47983";
             break;
         case 8:
-            divNow.style.backgroundColor = "rgb(222,184,135)";
+            divNow.style.backgroundColor = "#C93756";
             break;
         case 16:
-            divNow.style.backgroundColor = "rgb(127,215,212)";
+            divNow.style.backgroundColor = "#FF2D51";
             break;
         case 32:
-            divNow.style.backgroundColor = "rgb(184,134,11)";
+            divNow.style.backgroundColor = "#FF461F";
             break;
         case 64:
-            divNow.style.backgroundColor = "rgb(233,150,122)";
+            divNow.style.backgroundColor = "#F00056";
             break;
         case 128:
-            divNow.style.backgroundColor = "rgb(173,255,47)";
+            divNow.style.backgroundColor = "#836FFF";
             break;
         case 256:
-            divNow.style.backgroundColor = "rgb(255,105,180)";
+            divNow.style.backgroundColor = "#6CA6CD";
             break;
         case 512:
-            divNow.style.backgroundColor = "rgb(72,209,204)";
+            divNow.style.backgroundColor = "#32CD32";
             break;
         case 1024:
-            divNow.style.backgroundColor = "rgb(100.149,237)";
+            divNow.style.backgroundColor = "#00FA9A";
             break;
         case 2048:
-            divNow.style.backgroundColor = "rgb(147,112,216)";
+            divNow.style.backgroundColor = "#CDB5CD";
+            alert("恭喜你达成2048的目标！");
+            break;
+        case 4096:
+            divNow.style.backgroundColor = "#D1EEEE";
+            alert("恭喜你达成4096的目标！好棒棒啊~");
             break;
     }
 }
@@ -82,6 +87,7 @@ var updateUI = function(){
         }
     }
 }
+
 var calculate = function(direction){
     
     //一.根据方向转置矩阵
@@ -217,12 +223,12 @@ var calculate = function(direction){
     updateUI();
 }
 
+//     不能移动的提示信息：关闭后，将游戏重置
+//     增加逻辑：当数字全部在某一侧，且向该侧移动并不会出现数字合并时，点击向该侧移动的按钮，不会增加新的数字
+
 
 
 document.getElementById("up").onclick=function(){
-    // init();
-    // console.log(statusNow);
-    // alert(statusNow);
     calculate(0);
     //alert("向上")
 }
@@ -238,5 +244,31 @@ document.getElementById("right").onclick=function(){
     calculate(3);
     //alert("向右")
 }
+document.getElementById("reset").onclick=function(){
+    var r=confirm("你确认要重新开始吗？");
+    if (r==true){
+        init();
+    }
+}
+
+document.onkeydown = keyboardDirection;
+    function keyboardDirection() {
+        if (event.keyCode == 38 || event.keyCode == 87){
+            calculate(0);
+            //alert("向上")
+        }
+        if (event.keyCode == 40 || event.keyCode == 83){
+            calculate(1);
+            //alert("向下")
+        }
+        if (event.keyCode == 37 || event.keyCode == 65){
+            calculate(2);
+            //alert("向左")
+        }
+        if (event.keyCode == 39 || event.keyCode == 68){
+            calculate(3);
+            //alert("向右")
+        }
+    }
 
 init();
