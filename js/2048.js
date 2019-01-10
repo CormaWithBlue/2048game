@@ -24,6 +24,7 @@ var updateDiamond = function(id,number){
     if(number<0 || (number != 0 && !Number.isInteger(Math.log(number)/Math.log(2)))){
         return;
     }
+
     //2.找到要被赋值的div
     var divId = "diamond"+id;
     var divNow = document.getElementById(divId);
@@ -80,6 +81,7 @@ var updateDiamond = function(id,number){
     }
 }
 
+//更新显示到页面的格子中
 var updateUI = function(){
     for(var i=0;i<4;i++){
         for(var j=0;j<4;j++){
@@ -127,8 +129,8 @@ var calculate = function(direction){
             }
             else if(temp1[i][j] == temp2[i][temp2[i].length-1] && 0 ==temp3[i][temp2[i].length-1])
             {
-                temp2[i][temp2[i].length-1] *=2;
-                temp3[i][temp2[i].length-1] =1;
+                temp2[i][temp2[i].length-1] *= 2;
+                temp3[i][temp2[i].length-1] = 1;
             }
             else
             {
@@ -223,11 +225,48 @@ var calculate = function(direction){
     updateUI();
 }
 
-//     不能移动的提示信息：关闭后，将游戏重置
-//     增加逻辑：当数字全部在某一侧，且向该侧移动并不会出现数字合并时，点击向该侧移动的按钮，不会增加新的数字
+//不能移动的提示信息：关闭后，将游戏重置
+function gameOver(){   //judge the game is over or not
+    var i,j;
+    for(i=1;i<=4;i++){//is there any  empty position
+        for(j=1;j<=4;j++){
+            if(statusNow[i][j] == 0){
+                return false;
+            }           
+        }
+    }     
+          
+    for(i=1;i<=4;i++){// is there any datas can be combinated
+        for(j=1;j<=3;j++){
+            if(statusNow[i][j] == statusNow[i][j+1]){
+                return false;
+            }
+        }
+    }    
+                  
+    for(j=1;j<=4;j++){
+        for(i=1;i<=3;i++){
+            if(statusNow[i][j] == statusNow[i+1][j]){
+                return false;
+            }
+        }
+    }
+            
+    return true;
+}
+
+if(gameOver()){
+    alert("游戏结束！！！");
+    init();
+}
+
+
+//增加逻辑：当数字全部在某一侧，且向该侧移动并不会出现数字合并时，点击向该侧移动的按钮，不会增加新的数字
 
 
 
+
+//点击页面上的上下左右按钮实现数字的移动
 document.getElementById("up").onclick=function(){
     calculate(0);
     //alert("向上")
@@ -251,13 +290,16 @@ document.getElementById("reset").onclick=function(){
     }
 }
 
+//使用键盘的方向键和W A S D 实现与上下左右按钮点击一样的效果
 document.onkeydown = keyboardDirection;
     function keyboardDirection() {
+        event.preventDefault();//取消事件的默认动作，通过键盘操作方向键时，浏览器页面不会跟着上下移动
         if (event.keyCode == 38 || event.keyCode == 87){
             calculate(0);
             //alert("向上")
         }
         if (event.keyCode == 40 || event.keyCode == 83){
+            event.preventDefault();
             calculate(1);
             //alert("向下")
         }
